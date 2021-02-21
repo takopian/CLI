@@ -43,15 +43,12 @@ class Parser:
             if len(var_name.split()) > 1:
                 pass
             else:
-                # print(rest_line)
                 command_result = re.match(r'(\$\(.*\))', rest_line)
                 if command_result:
-                    # print('oooo', var_name, rest_line[2:-1])
                     self.context.context[var_name] = Parser(self.context, rest_line[2:-1]).parse()
                     return [Command('dummy')]
 
                 var_result = re.match(r'\$?[^\s]*', rest_line)
-                print(rest_line, var_result)
                 if var_result:
                     if rest_line[0] == '$':
                         get_val = self.context.context.get(rest_line[1:])

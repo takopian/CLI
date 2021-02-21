@@ -13,6 +13,7 @@ class CommandWithArgs(Command):
     def __init__(self, name: str, args: list):
         super().__init__(name)
         self.args = args
+        self.input = None
 
     def __call__(self):
         pass
@@ -23,13 +24,15 @@ class Cat(CommandWithArgs):
         super().__init__('cat', args)
 
     def __call__(self):
-        if self.args:
+        if self.input:
+            return self.input
+        elif self.args:
             for arg in self.args:
+                file_content = None
                 try:
                     file = open(arg, mode='r')
                     file_content = file.read()
                     file.close()
-                    print(file_content)
                 except:
                     print(f"exception occurred while reading file {arg}")
                 return file_content
@@ -47,7 +50,6 @@ class Echo(CommandWithArgs):
         super().__init__('echo', args)
 
     def __call__(self):
-        print(*self.args)
         return " ".join(self.args)
 
 
@@ -80,7 +82,7 @@ class WC(CommandWithArgs):
 
         elif len(self.args) == 1:
             stat = statistics(self.args[0])
-            print(*stat, self.args[0], end='\n')
+            # print(*stat, self.args[0], end='\n')
             return " ".join(map(str, stat))
 
         else:
@@ -90,13 +92,13 @@ class WC(CommandWithArgs):
             while 1:
                 try:
                     line = input()
+                    byte += len(line.encode('utf-8'))
+                    newline += 1
+                    line = line.split(' ')
+                    word += len(line)
                 except EOFError:
                     print(newline, word, byte, end='\n')
                     exit()
-                byte += len(line.encode('utf-8'))
-                newline += 1
-                line = line.split(' ')
-                word += len(line)
 
 
 class PWD(CommandWithArgs):
@@ -104,7 +106,7 @@ class PWD(CommandWithArgs):
         super().__init__('pwd', args)
 
     def __call__(self):
-        print(os.getcwd())
+        # print(os.getcwd())
         return os.getcwd()
 
 
