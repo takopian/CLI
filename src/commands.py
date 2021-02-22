@@ -78,11 +78,12 @@ class WC(CommandWithArgs):
                     total[i] += stat[i]
                 print(*stat, file)
             print(*total, "total", end='\n')
-            return " ".join(map(str, total))
+            return " ".join(list(map(str, total)) )
 
         elif len(self.args) == 1:
             stat = statistics(self.args[0])
             # print(*stat, self.args[0], end='\n')
+            stat.append(self.args[0])
             return " ".join(map(str, stat))
 
         else:

@@ -21,7 +21,7 @@ class Parser:
                 parsed_command.extend(rest_line[0:first_quote.start()].split())
                 rest_line = rest_line[first_quote.start():]
                 while rest_line:
-                    full_quote = re.match(r'[\'\"].*[\'\"]', rest_line)
+                    full_quote = re.match(r'[\'\"].*?[\'\"]', rest_line)
                     if full_quote:
                         parsed_command.append(rest_line[0:full_quote.end()])
                         rest_line = rest_line[full_quote.end():]

@@ -1,5 +1,6 @@
 import re
 from src.commands import CommandWithArgs, Command
+from src.executor import Executor
 
 
 class Expander:
@@ -14,7 +15,10 @@ class Expander:
             if expansion:
                 to_expand = self.context.get(arg[2:-1])
                 if to_expand:
-                    new_arg = to_expand()
+                    if isinstance(to_expand, list):
+                        new_arg = Executor(to_expand).execute()
+                    else:
+                        new_arg = to_expand()
             full_quote = re.match(r'\'.*\'', arg)
             if full_quote:
                 new_arg = arg[1:-1]
