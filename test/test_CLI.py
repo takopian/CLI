@@ -11,4 +11,10 @@ def test_parser():
     context = src.expander.Expander()
     parser = src.parser.Parser(context, input_line)
     result = parser.parse()
-    assert len(result) == 1 and isinstance(result[0][0], Echo) and result[0][0].args == [5]
+    assert len(result) == 1
+    assert isinstance(result[0], Echo)
+    assert result[0].args == ['5']
+
+
+if __name__ == "__main__":
+    test_parser()
