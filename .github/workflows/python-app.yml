@@ -31,4 +31,4 @@ jobs:
       run: |
         pip install pytest
         export PYTHONPATH=src
-        pytest tests/tests_CLI.py
+        pytest CLI/tests/tests_CLI.py
