@@ -46,7 +46,7 @@ def test_expand():
 
 
 def test_cat():
-    command = 'cat cat_test.txt'
+    command = 'cat test/cat_test.txt'
     result = startup_func(command)
     assert result == 'this is ok'
 
@@ -58,7 +58,7 @@ def test_echo():
 
 
 def test_wc():
-    command = 'wc wc_test.txt'
+    command = 'wc test/wc_test.txt'
     result = startup_func(command)
     assert result == '8 8 68 wc_test.txt'
 
@@ -66,7 +66,7 @@ def test_wc():
 def test_pwd():
     command = 'pwd'
     result = startup_func(command)
-    assert result[-9:] == r"\CLI\test"
+    assert result[-3:] == "CLI"
 
 
 def test_pipeline():
