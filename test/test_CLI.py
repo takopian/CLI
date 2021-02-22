@@ -60,7 +60,7 @@ def test_echo():
 def test_wc():
     command = 'wc test/wc_test.txt'
     result = startup_func(command)
-    assert result == '8 8 68 wc_test.txt'
+    assert result == '8 8 61 wc_test.txt'
 
 
 def test_pwd():
