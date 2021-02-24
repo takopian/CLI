@@ -198,7 +198,7 @@ class Grep(CommandWithArgs):
             file = open(find_in, mode='r')
             file_content = file.read().splitlines()
             file.close()
-        except FileNotFoundError:
+        except RuntimeError:
             print(f"exception occurred while reading file {find_in}")
         result = []
         i = 0

@@ -76,10 +76,10 @@ def test_pipeline():
 
 
 def test_grep():
-    command1 = 'grep find grep_test.txt'
-    command2 = 'grep -i find grep_test.txt'
-    command3 = 'grep -w -i w grep_test.txt'
-    command4 = 'grep -A 1 A grep_test.txt'
+    command1 = 'grep find test/grep_test.txt'
+    command2 = 'grep -i find test/grep_test.txt'
+    command3 = 'grep -w -i w test/grep_test.txt'
+    command4 = 'grep -A 1 A test/grep_test.txt'
     result1 = startup_func(command1)
     result2 = startup_func(command2)
     result3 = startup_func(command3)
@@ -100,4 +100,4 @@ if __name__ == "__main__":
     # test_wc()
     # test_pwd()
     # test_pipeline()
-    test_grep()
+    #test_grep()
