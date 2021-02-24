@@ -75,12 +75,29 @@ def test_pipeline():
     assert result == '123'
 
 
+def test_grep():
+    command1 = 'grep find grep_test.txt'
+    command2 = 'grep -i find grep_test.txt'
+    command3 = 'grep -w -i w grep_test.txt'
+    command4 = 'grep -A 1 A grep_test.txt'
+    result1 = startup_func(command1)
+    result2 = startup_func(command2)
+    result3 = startup_func(command3)
+    result4 = startup_func(command4)
+    assert result1 == 'find this'
+    assert result2 == 'find this\nfInD thIS'
+    assert result3 == 'vau w'
+    assert result4 == 'A test\nshould be found'
+
+
 if __name__ == "__main__":
-    test_parser()
-    test_context()
-    test_expand()
-    test_cat()
-    test_echo()
-    test_wc()
-    test_pwd()
-    test_pipeline()
+    pass
+    # test_parser()
+    # test_context()
+    # test_expand()
+    # test_cat()
+    # test_echo()
+    # test_wc()
+    # test_pwd()
+    # test_pipeline()
+    test_grep()

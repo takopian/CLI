@@ -4,6 +4,13 @@ from src.executor import Executor
 
 
 class Expander:
+    """
+    Class, that contain variables and can extend arguments, passed to command.
+    Fields:
+        context - dict of current variables with values.
+    Methods:
+        expand(command: CommandWithArgs) - expands command.args with context variables.
+    """
     def __init__(self):
         self.context = {}
 

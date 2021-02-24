@@ -3,10 +3,18 @@ from src.expander import Expander
 import re
 import os
 
-commandDict = {'cat': Cat, 'echo': Echo, 'wc': WC, 'pwd': PWD, 'exit': Exit}
+commandDict = {'cat': Cat, 'echo': Echo, 'wc': WC, 'pwd': PWD, 'exit': Exit, 'grep': Grep}
 
 
 class Parser:
+    """
+    Class, that parses input line.
+    Fields:
+        line - input line.
+        context - dict of current variables.
+    Methods:
+        parse - parses line and returns list of CommandWithArgs
+    """
     def __init__(self, context: Expander, line: str):
         self.line = line
         self.context = context
