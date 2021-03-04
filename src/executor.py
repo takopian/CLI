@@ -1,4 +1,4 @@
-from src.commands import CommandWithArgs
+from src.commands import *
 
 
 class Executor:
@@ -11,16 +11,19 @@ class Executor:
     """
     def __init__(self, command_pipeline: [CommandWithArgs]):
         self.command_pipeline = command_pipeline
+        self.command_dict = {'cat': Cat, 'echo': Echo, 'wc': WC, 'pwd': PWD, 'exit': Exit, 'grep': Grep}
 
     def execute(self):
+
         cur_result = None
         for command in self.command_pipeline:
             try:
-                if cur_result and not command.args:
+                if cur_result:
                     command.input = cur_result
                 cur_result = command()
             except RuntimeError as e:
                 print(e)
+                raise e
         if cur_result:
-            print(cur_result)
+            #print(cur_result)
             return cur_result

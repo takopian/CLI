@@ -1,9 +1,11 @@
-import pytest
+import sys
+sys.path.append('/CLI')
 
 import src.parser
 import src.expander
 import src.executor
 from src.commands import *
+from src.app import Shell
 
 
 def startup_func(line: str):
@@ -11,6 +13,20 @@ def startup_func(line: str):
     parser = src.parser.Parser(context, line)
     to_run = parser.parse()
     return src.executor.Executor(to_run).execute()
+
+
+def emulator(input_: [str]):
+    context = src.expander.Expander()
+    ans = []
+    for command in input_:
+        pipeline = src.parser.Parser(context, command).parse()
+        for comm in pipeline:
+            if isinstance(comm, CommandWithArgs):
+                context.expand(comm)
+        result = src.executor.Executor(pipeline).execute()
+        if result:
+            ans.append(result)
+    return ans
 
 
 def test_parser():
@@ -69,10 +85,28 @@ def test_pwd():
     assert result[-3:] == "CLI"
 
 
-def test_pipeline():
+def test_pipeline1():
     command = 'echo 123 | cat'
     result = startup_func(command)
     assert result == '123'
+
+
+def test_pipeline2():
+    command = 'echo 123 | wc'
+    result = startup_func(command)
+    assert result == '1 1 3'
+
+
+def test_pipeline3():
+    command = "echo 123 456 | grep 123"
+    result = startup_func(command)
+    assert result == '123 456'
+
+
+def test_pipeline4():
+    command = "echo 123 456 | grep 123 | wc"
+    result = startup_func(command)
+    assert result == '1 2 7'
 
 
 def test_grep():
@@ -90,6 +124,26 @@ def test_grep():
     assert result4 == 'A test\nshould be found'
 
 
+def test_vars():
+    commands = ['t=5', 'echo $t $t', 'echo "$t$t"', 'echo \'$t\'']
+    ans = emulator(commands)
+    assert ans == ['5 5', '55', '$t']
+
+
+def test_var_commands1():
+    commands = ['t=$(echo 154)', 'echo $t $t', 'echo "$t$t"', 'echo \'$t\'']
+    ans = emulator(commands)
+    assert ans == ['154 154', '154154', '$t']
+
+
+def test_var_commands2():
+    commands = ['t=$(echo 154 | cat | wc)', 'echo $t $t']
+    ans = emulator(commands)
+    assert ans == ['1 1 3 1 1 3']
+
+
+
+
 if __name__ == "__main__":
     pass
     # test_parser()
@@ -99,5 +153,5 @@ if __name__ == "__main__":
     # test_echo()
     # test_wc()
     # test_pwd()
-    # test_pipeline()
+    test_var_commands2()
     #test_grep()
