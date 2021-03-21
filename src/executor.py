@@ -11,7 +11,7 @@ class Executor:
     """
     def __init__(self, command_pipeline: [CommandWithArgs]):
         self.command_pipeline = command_pipeline
-        self.command_dict = {'cat': Cat, 'echo': Echo, 'wc': WC, 'pwd': PWD, 'exit': Exit, 'grep': Grep}
+        self.command_dict = {'cat': Cat, 'echo': Echo, 'wc': WC, 'pwd': PWD, 'exit': Exit, 'grep': Grep, 'cd': CD, 'ls': LS}
 
     def execute(self):
 

@@ -242,9 +242,26 @@ class Grep(CommandWithArgs):
             return ''
 
 
+class CD(CommandWithArgs):
+    """
+        Class that implements cd command.
+    """
+    def __init__(self, args: list = None):
+        super().__init__('cd', args)
+
+    def __call__(self):
+        directory = os.environ['HOME'] if not self.args else self.args[0]
+        os.chdir(directory)
+        return ''
+
+class LS(CommandWithArgs):
+    """
+        Class that implements ls command.
+    """
+    def __init__(self, args: list = None):
+        super().__init__('ls', args)
 
 
-
-
-
-
+    def __call__(self):
+        directory = os.getcwd() if not self.args else self.args[0]
+        return " ".join(os.listdir(directory))

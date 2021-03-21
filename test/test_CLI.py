@@ -142,10 +142,22 @@ def test_var_commands2():
     assert ans == ['1 1 3 1 1 3']
 
 
+def test_cd():
+    print("Running test for 'cd' command. Note: this test is platform specific")
+    command = 'cd /CLI'
+    _ = startup_func(command)
+    result = startup_func('pwd')
+    assert result == '/CLI'
+    print("'cd' test passed")
 
+def test_ls():
+    print("Running test for 'ls' command. Note: this test is platform specific")
+    command = 'ls /CLI/test/testdir'
+    result = startup_func(command)
+    assert result == '1 2'
+    print("'ls' test passed")
 
 if __name__ == "__main__":
-    pass
     # test_parser()
     # test_context()
     # test_expand()
@@ -155,3 +167,9 @@ if __name__ == "__main__":
     # test_pwd()
     test_var_commands2()
     #test_grep()
+
+    test_ls()
+    # since CD changes directory of the process
+    # it's best run at the end so as not to
+    # mess with other tests (or one should mess with them?)
+    test_cd()

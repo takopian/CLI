@@ -3,8 +3,7 @@ from src.expander import Expander
 import re
 import os
 
-commandDict = {'cat': Cat, 'echo': Echo, 'wc': WC, 'pwd': PWD, 'exit': Exit, 'grep': Grep}
-
+commandDict = {'cat': Cat, 'echo': Echo, 'wc': WC, 'pwd': PWD, 'exit': Exit, 'grep': Grep, 'cd': CD, 'ls': LS}
 
 class Parser:
     """
