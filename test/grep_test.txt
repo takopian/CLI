@@ -1,0 +1,9 @@
+find this
+fInD thIS
+
+vau w
+testw
+
+A test
+should be found
+but not this
